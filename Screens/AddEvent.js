@@ -40,13 +40,13 @@ export default function AddEvent({ route, navigation }) {
   setLocation('');
 
   Alert.alert('Success');
-  navigation.navigate('Dashboard', { screen: 'Events' });  // Navigate to EventList tab
+  navigation.navigate('Dashboard', { screen: 'Events' });  
 
 };
 
   return (
     <View style={{ padding: 20 }}>
-      <TextInput placeholder="Title" value={title} onChangeText={setTitle} style={{ borderBottomWidth: 1 }} />
+      <TextInput placeholder="Title" value={title} onChangeText={setTitle} style={{ borderBottomWidth: 1, height:20 }} />
       <TextInput placeholder="Date (YYYY-MM-DD)" value={date} onChangeText={setDate} style={{ borderBottomWidth: 1 }} />
       <TextInput placeholder="Location" value={location} onChangeText={setLocation} style={{ borderBottomWidth: 1 }} />
       <TextInput placeholder="Description" value={desc} onChangeText={setDesc} multiline style={{ borderBottomWidth: 1, height: 80 }} />

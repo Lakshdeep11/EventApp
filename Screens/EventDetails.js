@@ -31,6 +31,7 @@ export default function EventDetails({ route }) {
       {
         text: 'Yes',
         onPress: async () => {
+            navigation.navigate('Dashboard', { screen: 'Events' });
           await deleteDoc(doc(db, 'events', id));
         },
       },
@@ -41,11 +42,9 @@ export default function EventDetails({ route }) {
     const favRef = doc(db, 'users', user.uid, 'favourites', event.id);
 
     if (isFavorite) {
-      // Remove from favorites
       await deleteDoc(favRef);
       setIsFavorite(false);
     } else {
-      // Add to favorites
       await setDoc(favRef, {
         title: event.title,
         date: event.date,
@@ -58,7 +57,10 @@ export default function EventDetails({ route }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{event.title}</Text>
+            <View style={styles.container1}>
+            <Text style={styles.title}>{event.title}</Text>
+            </View>
+
       <Text style={styles.label}>Date:</Text>
       <Text style={styles.text}>{event.date}</Text>
 
@@ -69,12 +71,11 @@ export default function EventDetails({ route }) {
       <Text style={styles.text}>{event.description}</Text>
 
       {event.owner === user.uid && (
-        <View style={{ flexDirection: 'row', marginBottom: 8 }}>
+        <View style={{ flexDirection: 'row', marginBottom: 8, alignContent: 'space-between', width: '100%' }}>
           <Button
             title="Edit"
             onPress={() => navigation.navigate('AddEvent', { event: event })} 
           />
-          <View style={{ width: 10 }} />
           <Button title="Delete" color="red" onPress={() => handleDelete(event.id)} />
         </View>
       )}
@@ -94,18 +95,30 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#fff',
   },
+  container1: {
+    padding: 5,
+    backgroundColor: '#fff',
+    alignItems:'center',
+  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
+    alignContent:'center',
+    alignItems:'center'
   },
   label: {
-    fontWeight: '600',
+    fontWeight: '800',
     marginTop: 10,
+    fontSize: 18,
     color: '#555',
   },
   text: {
     fontSize: 16,
     color: '#333',
+    borwderWidth: 4,
+    borderColor: '#ccc',
+    borderRadius: 4,
+    padding: 8,
   },
 });

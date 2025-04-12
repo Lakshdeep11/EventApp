@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Button, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, Button, Alert, TouchableOpacity, StyleSheet } from 'react-native';
 import { collection, onSnapshot, doc, deleteDoc, setDoc, getDoc } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 import { auth, db } from '../Firebase/firebaseConfig';
@@ -18,32 +18,42 @@ export default function EventList() {
 
   }, []);
 
-  
-
-  
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={{
         padding: 16,
         margin: 8,
-        backgroundColor: '#e0e0e0',
+        backgroundColor: '#1E90FF',
         borderRadius: 8,
       }}
       onPress={() => navigation.navigate('EventDetails', { event: item })}
     >
-      <Text style={{ fontSize: 18 }}>{item.title}</Text>
+      <Text style={{ fontSize: 18, color:'#fff' }}>{item.title}</Text>
     </TouchableOpacity>
   );
 
   return (
-    <View style={{ flex: 1, paddingTop: 20 }}>
+    <View style={styles.container}>
       <FlatList
         data={events}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
-        ListEmptyComponent={<Text style={{ textAlign: 'center', marginTop: 20 }}>No events found.</Text>}
+        ListEmptyComponent={<Text style={styles.title}>No events found.</Text>}
       />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#fff',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 3,
+  }
+});
